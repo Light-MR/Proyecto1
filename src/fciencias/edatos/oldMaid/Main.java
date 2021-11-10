@@ -12,11 +12,11 @@ public class Main {
     
     public static void main(String[] args) {
 		 
-		OldMaid p = new OldMaid();
+		//OldMaid p = new OldMaid();
 		//allCards = p.generateCards().getDecks();
-		Deck d =  p.generateCards();
+		//Deck d =  p.generateCards();
 		
-		System.out.println(d);
+		//System.out.println(d);
 		/*
 		DoubleLinkedList<Player> players = p.generatePlayers(5);
 		d = p.shuffle(d);
@@ -44,8 +44,8 @@ public class Main {
 
                 //generaPlayer();
                 //distribuyeCartas(); */
-		//OldMaidGame g = new OldMaidGame();
-		//g.startGame(6, "Mary");
+		OldMaidGame g = new OldMaidGame();
+		g.startGame(6, "Mary");
 		
                 
         

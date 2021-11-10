@@ -18,6 +18,8 @@ public class OldMaidGame {
     /**Jugador de la derecha, izquierda y jugador actual */
     Player nextPlayer, prevPlayer, actual, user;
 
+    Queue<Queue<Card>> historialCard = new Queue<>();
+
     //Card color
 	private final static String red="\033[31m"; 
 	private final static String blue="\033[34m"; 
@@ -32,6 +34,7 @@ public class OldMaidGame {
 
     //Iniciar partida 
     public void startGame(int playersAmount, String userName){
+        Queue<Queue<Card>> registroCard= new Queue<>();
         //Crear cartas
         System.out.println("\t"+yellow + "\t★ ★ 「" + white + " W E L C O M E  - TO - O L D - M A I D - G A M E "+ 
         yellow+ "」★ ★ " + reset);
@@ -66,11 +69,22 @@ public class OldMaidGame {
             aux= players.get(n);
             if(n==0){
                 System.out.println("\n\tYour cards\n"+players.get(n));
+                sleep(3000);
                 continue;
             }
             game.showBackCard(aux.getDeck(), aux);
             
         }
+        sleep(5000);
+        System.out.print("\033\143"); //limpiar consola
+        System.out.println( purple+ "\n\tDiscard your pairs..."+reset);
+        Queue<Card> firstUserReoved =players.get(0).getDeck().discardPairs(userName);
+        if(!firstUserReoved.isEmpty()){
+            registroCard.enqueue(firstUserReoved);
+        }
+        System.out.println( blue+ "\n\tPlayers are discarding their cards too..."+reset);
+        sleep(700);
+        
 
 
 

@@ -83,6 +83,8 @@ public class OldMaid {
 		for(int n =0; n<cards.size(); n++){
             if(cards.get(n).getDrawCard().equals("🃏")){
                 cards.get(n).setValue(0);
+                cards.get(n).setNombreCarta("Joker");
+                cards.get(n).setSuit("✮");
                 continue;
                 
             }

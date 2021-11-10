@@ -1,4 +1,4 @@
-import reference.*;
+	import reference.*;
 
 /**
  * Clase que implementa el mazo
@@ -13,6 +13,18 @@ public class Deck {
         
      /** Listas doblemente ligadas para cartas */ //	
 	DoubleLinkedList<Card> decks;
+
+
+	//Card color
+	private final static String red="\033[31m"; 
+	private final static String blue="\033[34m"; 
+	private final static String reset="\u001B[0m";
+	private final static String green="\033[32m"; 
+	private final static String yellow="\033[33m"; 
+	private final static String purple="\033[35m"; 
+	private final static String cyan="\033[36m"; 
+	private final static String white = "\u001B[37m";
+	 
 
      /**Constuctor a partir de listas doblemente ligadas*/     
 	public Deck(){
@@ -93,13 +105,14 @@ public class Deck {
 	public Queue<Card> discardPairs(String playerNam){
 		Queue<Card> removed = new Queue<>();
 		if(!duplicatedCards()){
+			System.out.println(yellow+"\n\t You don't have pairs to discard!! (/◔ ◡ ◔)/"+ reset);
 			return removed;
 		}
 		try {
 			DoubleLinkedList<Card> cards = getDecks();
 			int value = 0, value1=0;
 				Card card1 = new Card(), card2 = new Card();
-				System.out.print("\n\tCartas eliminadas de "+playerNam +":");
+				System.out.print("\n\tDiscarded cards from "+playerNam +":");
 				for(int n = 0; n<getSize(); n++){
 					for(int k=n+1; k<getSize(); k++){
 						value = cards.get(n).getValue();

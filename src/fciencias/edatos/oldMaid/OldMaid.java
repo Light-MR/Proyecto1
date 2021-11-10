@@ -16,6 +16,10 @@ public class OldMaid {
     /**Contiene la cantidad total de jugadores */
     private DoubleLinkedList<Player> players;
 
+    DoubleLinkedList<Queue<Card>> registros = new DoubleLinkedList<>();
+
+    
+
     //creando en mazo de todas las cartas
     /**
      * Genera un deck con las 51 cartas de inicio del juego.
@@ -174,14 +178,11 @@ public class OldMaid {
      * @return Una lista de queues, donde cada queue contiene las cartas que fueron eliminadas
      * por jugador, una queue representa las cartas eliminadas de un jugador.
      */
-    public DoubleLinkedList<Queue<Card>> discardPairsMachine(DoubleLinkedList<Player> players){
-        DoubleLinkedList<Queue<Card>> registros = new DoubleLinkedList<>();
-        String name = "";
+    public void discardPairsMachine(DoubleLinkedList<Player> players){
         for(int n=0; n<players.size();n++){
-            name = players.get(n).getName();
-            registros.add(registros.size(), players.get(n).getDeck().discardPairs(name));
+            registros.add(registros.size(), players.get(n).getDeck().discardPairs(players.get(n)));
         }
-        return registros;
+       
 
     }
 
@@ -241,6 +242,14 @@ public class OldMaid {
 
     public void setPlayers(DoubleLinkedList<Player> players){
         this.players= players;
+    }
+
+    public DoubleLinkedList<Queue<Card>> getRegistros(){
+        return registros;
+    }
+
+    public void setRegistros(DoubleLinkedList<Queue<Card>> registros){
+        this.registros = registros;
     }
 
     /**

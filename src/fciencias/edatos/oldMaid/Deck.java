@@ -26,6 +26,8 @@ public class Deck {
 	private final static String white = "\u001B[37m";
 	 
 
+	Queue<Player> auxRegistros;
+
      /**Constuctor a partir de listas doblemente ligadas*/     
 	public Deck(){
 		this.decks = new DoubleLinkedList<>();
@@ -102,17 +104,17 @@ public class Deck {
 	 * Remueve los pares de una lista de cartas (si los hay) version.
 	 * @return Queue con los elementos eliminados
 	 */
-	public Queue<Card> discardPairs(String playerNam){
+	public Queue<Card> discardPairs(Player player){
 		Queue<Card> removed = new Queue<>();
 		if(!duplicatedCards()){
-			System.out.println(yellow+"\n\t You don't have pairs to discard!! (/◔ ◡ ◔)/"+ reset);
+			System.out.println(yellow+"\n\t There isn´t any pairs to discard!! (/◔ ◡ ◔)/"+player.getName()+reset);
 			return removed;
 		}
 		try {
 			DoubleLinkedList<Card> cards = getDecks();
 			int value = 0, value1=0;
 				Card card1 = new Card(), card2 = new Card();
-				System.out.print("\n\tDiscarded cards from "+playerNam +":");
+				System.out.print("\n\tDiscarded cards from "+player.getName()+":");
 				for(int n = 0; n<getSize(); n++){
 					for(int k=n+1; k<getSize(); k++){
 						value = cards.get(n).getValue();
@@ -128,6 +130,7 @@ public class Deck {
 						}
 					}
 				}
+				auxRegistros.enqueue(player);
 		
 		} catch (IndexOutOfBoundsException | NullPointerException e) {
 			System.out.println("\n\tSomething went wrong! D:");

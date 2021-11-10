@@ -34,14 +34,13 @@ public class OldMaidGame {
 
     //Iniciar partida 
     public void startGame(int playersAmount, String userName){
-        Queue<Queue<Card>> registroCard= new Queue<>();
         //Crear cartas
         System.out.println("\t"+yellow + "\t★ ★ 「" + white + " W E L C O M E  - TO - O L D - M A I D - G A M E "+ 
         yellow+ "」★ ★ " + reset);
         Deck allCards =  game.generateCards();
         sleep(1000);
         System.out.println("\n\t ★ CARDS:\t\n"+ allCards); //Mostrar cartas
-        sleep(4000);
+        sleep(3000);
         //crear jugadores
         // ---Jugador usuario
         user= new Player("\t"+userName,0);
@@ -50,47 +49,43 @@ public class OldMaidGame {
         players.add(0, user);
         game.setPlayers(players);
     
-        sleep(4000);
         System.out.println("\n\t ★ PLAYERS: \n" + game.printPlayersName(players));
         sleep(3000);
         System.out.print("\033\143"); //limpiar consola
 
-        System.out.println("\n\t--------"+ red+ " Preparing cards"+ reset);
+        System.out.println("\n\t--------"+ red+ " Shuffling cards"+ reset);
         game.shuffle(allCards); //revolver cartas
         sleep(1000);
 
         System.out.println("\n\t--------"+ green+ " Dealing cards"+ reset);
         game.distributeCards(allCards);
 
-        sleep(1000);
+        sleep(600);
         //Mostrar cartas de jugadores
         Player aux= new Player();
         for(int n = 0;n<players.size(); n++){
             aux= players.get(n);
             if(n==0){
-                System.out.println("\n\tYour cards\n"+players.get(n));
+                System.out.println("\tYour cards"+players.get(n));
                 sleep(3000);
                 continue;
             }
             game.showBackCard(aux.getDeck(), aux);
             
         }
+
+        //System.out.println(players);
         sleep(5000);
         System.out.print("\033\143"); //limpiar consola
         System.out.println( purple+ "\n\tDiscard your pairs..."+reset);
-        Queue<Card> firstUserReoved =players.get(0).getDeck().discardPairs(userName);
+        Queue<Card> firstUserReoved =players.get(0).getDeck().discardPairs(players.get(0));
         if(!firstUserReoved.isEmpty()){
-            registroCard.enqueue(firstUserReoved);
+            game.getRegistros().add(game.getRegistros().size(), firstUserReoved);
         }
         System.out.println( blue+ "\n\tPlayers are discarding their cards too..."+reset);
         sleep(700);
-        
 
-
-
-
-
-
+        game.discardPairsMachine(players);
     }
 
     private void sleep(int time){

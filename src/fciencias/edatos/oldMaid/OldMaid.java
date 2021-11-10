@@ -1,117 +1,137 @@
 import reference.*;
-import java.util.Random;
 
-import javax.smartcardio.CardException;
 /**
- * Clase que representa la modalidad de juego "Old Maid".
- * @author Reyes Ramos Luz María. 318211073
- * @author 
- * @version 1.0 Noviembre 2021
- * @since EDD 2022-1
+ * Clase que implementa el mazo
+ * @author Julieta Vargas Gutiérrez 318341945
+ * @author Reyes Ramos Luz Marìa  318211073
+ * @version 1.0 Noviembre 2021.
+ * @since Estructuras de datos 2022-1.
  */
-public class OldMaid {
-
-    /**Contiene el mazo de las 51 cartas */
-    static DoubleLinkedList<Card> allCards;
 
 
-    /**Contiene la cantidad total de jugadores */
-    static DoubleLinkedList<Player> players;
+public class Deck {
 
-    //creando en mazo de todas las cartas
+     /** Listas doblemente ligadas para cartas */ //
+	DoubleLinkedList<Card> decks;
+
+     /**Constuctor a partir de listas doblemente ligadas*/
+	public Deck(){
+		this.decks = new DoubleLinkedList<>();
+	}
+
+	public Deck(DoubleLinkedList<Card> cards){
+		this.decks = cards;
+	}
+
+
+        /**
+	* Permite añadir carta
+        * @param card la carta a agregar
+	*/
+
+	public void addToDeck (Card card){
+		this.decks.add(getSize(),card);
+	}
+
     /**
-     * Genera un deck con las 51 cartas de inicio del juego.
-     * @return
-     */
-    public Deck generateCards(){
+	* Permite remover una carta
+    * @param i indice de la carta que quieres remover
+	*/
+
+       public Card removeFromDeck (int i){
+		return this.decks.remove(i);
+	}
+
+    /**
+	* Regresa el tamaño de la baraja
+	* @return el tamaño de la baraja
+	*/
+	public int getSize (){
+		return decks.size();
+	}
+      
+    
        
-        allCards = new DoubleLinkedList<>();
-        String[] cardName = {"Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"};
-        String[] cardSign = {"♠", "♦", "♥", "♣"};
-        for(int i=0;i<13;i++){
-            if(!cardName[i].equals("Queen")){
-                allCards.add(0,new Card(cardName[i], cardSign[0], 1));
-            }
-            allCards.add(0,new Card(cardName[i], cardSign[1], 2));
-            allCards.add(0,new Card(cardName[i], cardSign[2], 2));
-            allCards.add(0,new Card(cardName[i], cardSign[3], 1));
-        }
-        Deck cards = new Deck(auxCreateCards(allCards));
-        return cards ;
-    }
 
-    private DoubleLinkedList<Card>  auxCreateCards(DoubleLinkedList<Card> allCards ){
-        String[] cards = {"🃞","🂾", "🃎", "🂮", "🃝", "🂽", "🃏", "🃛","🂻","🃋",
-                          "🃛", "🃚", "🂺" ,"🃊" , "🂪", "🃙", "🂹","🃉", "🂩","🃘","🂸",
-                          "🃈","🂨", "🃗", "🂷", "🃇","🂧", "🃖","🂶", "🃆", "🂦", "🃕" , "🂵" , "🃅",
-                          "🂥", "🃔", "🂴", "🃄", "🂤", "🃓", "🂳","🃃", "🂣", "🃒", "🂲", "🃂", "🂢",
-                          "🃑", "🂱", "🃁", "🂡" };
-        for (int n = 0; n < cards.length; n++) 
-            allCards.get(n).setDraw(cards[n]);
-        
-        return allCards;
-
-    }
+	/**
+	* Regresa apartir de listas doblemente ligadas un mazo con cartas
+	* @return decks
+	*/
+	public DoubleLinkedList<Card> getDecks() {
+		return decks;
+	}
 
     /**
-     * Genera una lista de jugadores: Total de participantes en el juego.
-     * A lo maximo son 10 jugadores. Rango 1-10
-     * @param n Número de jugadores que participarán en el juego.
-     * @return Lista con n jugadores.
-     */
-    public DoubleLinkedList<Player> generatePlayers(int n){
-        if(n<1 || n>10){
-            System.out.println("Número de jugadores fuera de rango 🚩🚩🚩");
-            return new DoubleLinkedList<>();
-        }
-        players = new DoubleLinkedList<>();
-        for (int k = 0; k<n; k++)
-            players.add(0, new Player("Player " + n+1 + " ٩(●̮̮̃•̃)۶") );
-        
-        return players;
+	* Modifca el mazo apartir de una lista de cartas.
+    * @param decks Lista de cartas.
+	*/
+	public void setDecks(DoubleLinkedList<Card> decks) {
+		this.decks = decks;
+	}
 
-    }
-    //Revolver/ Barajear cartas
-    public Deck shuffle(Deck allCards){
-        Queue<Integer> index = auxShuffle();
-        int i =0;
-        DoubleLinkedList<Card> copy = allCards.getDecks();
-        //System.out.println("\nSize queue:" + index.size()+ "\tCopy:"+ copy.size());
-        //System.out.println("\n\tC O P Y - \n"+ copy);
-        DoubleLinkedList<Card> shuffle = new DoubleLinkedList<>();
-        for(int n = 0; n<copy.size(); n++){
-            i= index.first();
-            index.dequeue();
-            //System.out.println("\nn="+n +"\tindex:"+ i);
-            shuffle.add(n, copy.get(i));
-        }
+	/**
+	 * Determina si en una lista de cartas hay elementos duplicados, es decir
+	 * determina si existe un par de cartas iguales en valor.
+	 * @return true si hay par, false en otro caso.
+	 */
+	public boolean duplicatedCards(){
+		int value1 = 0, value2 = 0;
+		for(int n = 0; n<getSize()-1; n++){
+			for(int k = n+1; k<getSize(); k++){
+				value1 = getDecks().get(n).getValue();
+				value2 = getDecks().get(k).getValue();
+				if(value1 == value2)
+					return true;
+
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Remueve los pares de una lista de cartas (si los hay) version.
+	 * @return Queue con los elementos eliminados
+	 */
+	public Queue<Card> discardPairs(String playerNam){
+		Queue<Card> removed = new Queue<>();
+		if(!duplicatedCards()){
+			return removed;
+		}
+		try {
+			DoubleLinkedList<Card> cards = getDecks();
+			int value = 0, value1=0;
+				Card card1 = new Card(), card2 = new Card();
+				System.out.print("\n\tCartas eliminadas de "+playerNam +":");
+				for(int n = 0; n<getSize(); n++){
+					for(int k=n+1; k<getSize(); k++){
+						value = cards.get(n).getValue();
+						value1 = cards.get(k).getValue();
+						if(value == value1){
+							card1= cards.remove(n);
+							card2 = cards.remove(k-1);
+							removed.enqueue(card1);
+							removed.enqueue(card2);
+							n=0;
+							k= n+1;
+							System.out.print("\t"+card1 + "\n\t"+ card2+"\n\n");
+						}
+					}
+				}
+
+		} catch (IndexOutOfBoundsException | NullPointerException e) {
+			System.out.println("\n\tSomething went wrong! D:");
+			return removed;
+		}
+		return removed; //será de utilidad para el historial
+	}
 
 
 
-        return new Deck(shuffle);
-    }
+	@Override
+	public String toString(){
+		return getDecks().toString();
+	}
 
-    //auxiliar para barajear cartas
-    /*
-     * Regresa una cola con numeros random sin repeticiones 
-     * del 0 al 50, esto será de ayuda para utilizarse como 
-     * índices.
-     */
-    private Queue<Integer> auxShuffle(){
-        Queue <Integer> indices = new Queue<>();
-        DoubleLinkedList<Integer> repeated = new DoubleLinkedList<>();
-        
-        Random rn = new Random();
-        int index = rn.nextInt(51);
-        for(int k = 0; k<51; k++){
-            while (repeated.contains(index)) {
-                index = rn.nextInt(51);
-            }
-            repeated.add(0, index);
-            indices.enqueue(index);
-        }
-        //System.out.println(indices);
-        return indices;
 
-    }
+
 }

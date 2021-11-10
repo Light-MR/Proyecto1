@@ -133,13 +133,16 @@ public class Deck {
 				auxRegistros.enqueue(player);
 		
 		} catch (IndexOutOfBoundsException | NullPointerException e) {
-			System.out.println("\n\tSomething went wrong! D:");
+			//System.out.println("\n\tSomething went wrong! D:");
 			return removed;
 		}
 		return removed; //será de utilidad para el historial
 	}
 
 
+	public boolean isEmpty(){
+		return getDecks().isEmpty();
+	}
 
 	@Override
 	public String toString(){

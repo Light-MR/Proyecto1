@@ -18,6 +18,7 @@ public class OldMaid {
 
     DoubleLinkedList<Queue<Card>> registros = new DoubleLinkedList<>();
 
+    Queue<Integer>turnos;
     
 
     //creando en mazo de todas las cartas
@@ -103,7 +104,7 @@ public class OldMaid {
      * @return Lista con n jugadores.
      */
     public DoubleLinkedList<Player> generatePlayers(int n){
-        if(n<1 || n>10){
+        if(n<2 || n>10){
             System.out.println("Número de jugadores fuera de rango 🚩🚩🚩");
             return new DoubleLinkedList<>();
         }
@@ -125,6 +126,7 @@ public class OldMaid {
             index.dequeue();
             shuffle.add(n, copy.get(i));
         }
+        //System.out.println("+++++++++"+shuffle);
 
 
 
@@ -180,6 +182,9 @@ public class OldMaid {
      */
     public void discardPairsMachine(DoubleLinkedList<Player> players){
         for(int n=0; n<players.size();n++){
+            if(n==0)
+                continue;
+            
             registros.add(registros.size(), players.get(n).getDeck().discardPairs(players.get(n)));
         }
        
@@ -264,6 +269,23 @@ public class OldMaid {
 		}
 		return "\n"+names;
 	}
+
+    /*
+     * Guarda los turnos jugadores en un queue.
+     * Turnos de 0 a n-1 jugadores
+     */
+    public void asignTurn(int num){
+        turnos = new Queue<>();
+        for(int n= 0; n<num;n++)
+            turnos.enqueue(n);
+        
+		
+
+    }
+
+    public Queue<Integer> getTurns(){
+        return turnos;
+    }
 
 
 

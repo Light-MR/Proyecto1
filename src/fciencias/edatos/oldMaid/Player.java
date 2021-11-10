@@ -26,6 +26,9 @@ public class Player {
 	int num;
 
 
+	
+
+
         /***********************************************
         **           CONSTRUCTORES                    **
         ************************************************/
@@ -105,18 +108,13 @@ public class Player {
 		this.turn = turn;
 	}
 	
-	/*
-     * Guarda los turnos jugadores en un queue.
-     * Turnos de 1 a n jugadores
-     */
-    private Queue<Integer> asignTurn(int num){
-        Queue<Integer> turnos = new Queue<>();
-        for(int n= 0; n<num;n++)
-            turnos.enqueue(n+1);
-        
-		return turnos;
+	
+	
+	public int getNumPlayer(){
+		return num;
+	}
 
-    }
+	
 
 	@Override
 	public String toString(){

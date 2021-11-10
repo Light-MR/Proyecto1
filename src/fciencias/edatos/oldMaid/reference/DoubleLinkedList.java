@@ -334,7 +334,7 @@ public class DoubleLinkedList<T> implements TDAList<T> {
 
         Node iterador = head;
         while(iterador != null){
-            formato += iterador.getElement() + " \n";
+            formato += "\t"+ iterador.getElement() + " \n";
             iterador = iterador.getNext();
         }
 

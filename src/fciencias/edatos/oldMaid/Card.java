@@ -1,5 +1,3 @@
-import java.security.DrbgParameters.Reseed;
-
 import reference.*;  
 /**
  * Clase que implementa las cartas
@@ -147,7 +145,7 @@ import reference.*;
 
 	@Override 
 	public String toString(){
-		return  "\n"+cardDraw + "\t["+getNombreCarta() + "  "+ getSuit() + "]"+"";
+		return  "\n\t"+cardDraw + "\t["+getNombreCarta() + "  "+ getSuit() + "]"+"";
 	}
 
 	/**

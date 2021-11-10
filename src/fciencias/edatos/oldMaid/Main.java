@@ -10,52 +10,14 @@ import reference.*;
  */
 public class Main {
     
-   static DoubleLinkedList<Card> allCards;
-    static DoubleLinkedList<Player> players;
-       
-      /***********************************************
-      **              MÉTODOS                       **
-      ************************************************/
-    
-    
-    /**
-	*  Crea las cartas
-	*/
-    
-    
-    
-    /**
-    * Genera los jugadores
-    */
-                
-    
-
-   
-    /**
-    * Distribuye las cartas
-    */
-   /*private static void distribuyeCartas() {
-		DoubleLinkedList<Card> 
-                        tempCards = null; //Aquí pasa algo mal pero no sé que es):
-                
-		for(int i=0,k=0;i<allCards.size();i++,k++){
-			if(k==4)k=0;
-			Random r = new Random();
-			int randint = (Math.abs(r.nextInt()) % (allCards.size()-i));
-			players.get(k).getDeck().addToDeck(tempCards.get(randint));
-			tempCards.remove(randint);
-		}
-	} */
-   
-    
-  
-    
-    
     public static void main(String[] args) {
+		 
 		OldMaid p = new OldMaid();
 		//allCards = p.generateCards().getDecks();
 		Deck d =  p.generateCards();
-		//System.out.println(d);
+		
+		System.out.println(d);
+		/*
 		DoubleLinkedList<Player> players = p.generatePlayers(5);
 		d = p.shuffle(d);
 		//System.out.println("All cards size:"+d.getSize());
@@ -81,7 +43,9 @@ public class Main {
 
 
                 //generaPlayer();
-                //distribuyeCartas();
+                //distribuyeCartas(); */
+		//OldMaidGame g = new OldMaidGame();
+		//g.startGame(6, "Mary");
 		
                 
         

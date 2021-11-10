@@ -22,6 +22,10 @@ public class Player {
     /**Turno del jugador */
 	int turn;
  
+	/**Number of player */
+	int num;
+
+
         /***********************************************
         **           CONSTRUCTORES                    **
         ************************************************/
@@ -38,8 +42,9 @@ public class Player {
 	* @param name nombre del jugador.
 	*/
         
-	public Player(String name){
+	public Player(String name,int num){
 		this.name = name;
+		this.num = num;
 		this.deck = new Deck();
 	}
         
@@ -115,7 +120,9 @@ public class Player {
 
 	@Override
 	public String toString(){
-		return "\nName:" +name+"" + "\n\nCards:\n" + "\n"+deck.toString() + "\t Deck size:"+
-		getDeck().getSize();
+		return "\n\nName:" +name+"" + "\n\nCards:\t\n" + "\t"+deck.toString()+"\n\n" ;
 	}
+
+
+	
 }

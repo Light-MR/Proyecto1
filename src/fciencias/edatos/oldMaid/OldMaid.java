@@ -10,11 +10,11 @@ import java.util.Random;
 public class OldMaid {
 
     /**Contiene el mazo de las 51 cartas */
-    static DoubleLinkedList<Card> allCards;
+    private DoubleLinkedList<Card> allCards;
 
 
     /**Contiene la cantidad total de jugadores */
-    static DoubleLinkedList<Player> players;
+    private DoubleLinkedList<Player> players;
 
     //creando en mazo de todas las cartas
     /**
@@ -42,11 +42,19 @@ public class OldMaid {
     }
 
     private DoubleLinkedList<Card>  auxCreateCards(DoubleLinkedList<Card> allCards ){
-        String[] cards = {"🃞","🂾", "🃎", "🂮", "🃝", "🂽", "🃏", "🃛","🂻","🃋",
-                          "🃛", "🃚", "🂺" ,"🃊" , "🂪", "🃙", "🂹","🃉", "🂩","🃘","🂸",
-                          "🃈","🂨", "🃗", "🂷", "🃇","🂧", "🃖","🂶", "🃆", "🂦", "🃕" , "🂵" , "🃅",
-                          "🂥", "🃔", "🂴", "🃄", "🂤", "🃓", "🂳","🃃", "🂣", "🃒", "🂲", "🃂", "🂢",
-                          "🃑", "🂱", "🃁", "🂡" };
+        String[] cards = {"🂡","🃁", "🂱", "🃑",     "🂢", "🃂", "🂲", "🃒"   
+                         
+                         ,"🂣","🃃", "🂳", "🃓",     "🂤" ,"🃄" , "🂴", "🃔", 
+                         
+                          "🂥","🃅", "🂵", "🃕",     "🂦",  "🃆" ,"🂶",  "🃖",
+
+                          "🂧","🃇", "🂷", "🃗",     "🂨",  "🃈", "🂸",  "🃘" , 
+                        
+                          "🂩","🃉", "🂹", "🃙",     "🂪",  "🃊", "🂺",  "🃚", 
+                          
+                          "🂫","🃋", "🂻", "🃛",     "🃍",  "🂽", "🃏",  "🂮", 
+                          
+                          "🃎", "🂾", "🃞" };
         for (int n = 0; n < cards.length; n++) 
             allCards.get(n).setDraw(cards[n]);
         
@@ -95,7 +103,7 @@ public class OldMaid {
         }
         players = new DoubleLinkedList<>();
         for (int k = 0; k<n; k++)
-            players.add(0, new Player("\tPlayer " + (k+1) + " ٩(●̮̮̃•̃)۶") );
+            players.add(players.size(), new Player("\tPlayer " + (k+2) + " ٩(●̮̮̃•̃)۶",k+1) );
         
         return players;
 
@@ -152,7 +160,6 @@ public class OldMaid {
                 }
             }
         } catch (IndexOutOfBoundsException | NullPointerException e) {
-            System.out.println("Esta vacia? " + allCards.getDecks().isEmpty());
             return;
         }
       
@@ -212,13 +219,40 @@ public class OldMaid {
      * @param namePlayer El nombre del siguiente jugador (a quien se le quitará una carta).
      * @param playerDeck Las cartas del otro jugador.
      */
-    public  void showBackCard(String namePlayer, Deck playerDeck){
-        System.out.println("Pick one card from "+ namePlayer + " cards\n");
+    public  void showBackCard( Deck playerDeck, Player player){
+        //System.out.println("Pick one card from "+ namePlayer + " cards\n");
+        System.out.println("\n\n\t"+player.getName() + " cards\n");
         for(int n=0; n<playerDeck.getSize();n++)
             System.out.print("\t"+playerDeck.getDecks().get(n).getBack()+ " "+(n+1));
         
     }
 
+    public DoubleLinkedList<Card> getAllCards(){
+        return allCards;
+    }
+    public void setAllCards(DoubleLinkedList<Card> cards){
+        this.allCards = cards;
+    }
+    public DoubleLinkedList<Player> getPlayers(){
+        return players;
+    }
+
+    public void setPlayers(DoubleLinkedList<Player> players){
+        this.players= players;
+    }
+
+    /**
+	 * Imprime los nombres de una lista de jugadores.
+	 * @param players Lista de jugadores.
+	 * @return Cadena con nombres de los jugadores.
+	 */
+	public String printPlayersName(DoubleLinkedList<Player> players){
+		String names="";
+		for(int n =0; n<players.size(); n++){
+			names+="\t"+players.get(n).getName()+ "\n\n";
+		}
+		return "\n"+names;
+	}
 
 
 

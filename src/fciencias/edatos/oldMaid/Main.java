@@ -1,3 +1,4 @@
+import java.util.Scanner;
 import reference.*;
 
 
@@ -44,8 +45,12 @@ public class Main {
 
                 //generaPlayer();
                 //distribuyeCartas(); */
+		
 		OldMaidGame g = new OldMaidGame();
-		g.game(7, "Mary", 4);
+		
+
+		System.out.println("TESTING ///////////:");
+		g.game(7, "Mary");
 		
                 
         

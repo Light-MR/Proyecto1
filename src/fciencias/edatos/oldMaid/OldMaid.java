@@ -197,7 +197,6 @@ public class OldMaid {
      * Elige una carta de las cartas del siguiente jugador.
      * @param nextPLayer El jugador al que se le quitará una carta.
      * @param card Numero de carta a descartar, debe estar dentro del rango de cartas
-     * del jugador. 1 a n
      * @return La carta que fue descartada
      */
     public Card pickCard(Player nextPLayer,int card){ //version user
@@ -206,7 +205,7 @@ public class OldMaid {
 
         try {
             for(int n = 0; n<nextPLayer.getDeck().getSize(); n++)
-                if(card-1 == n)
+                if(card == n)
                     return picked = nextPLayer.getDeck().removeFromDeck(n);
                 
             

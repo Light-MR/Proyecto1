@@ -108,21 +108,19 @@ public class OldMaidGame {
             System.out.println(white+ "\n\t★"+ actual.getName()+ " starts the game!!"+ reset);
             //Asignando referencias.
             players.get(starts).setTurn(1);
-
-            
-            if(actual.getNumPlayer()!=0 && actual.getNumPlayer()!= players.size()-1){
-                nextPlayer = players.get(starts+1);
-                prevPlayer= players.get(starts-1);
-            }
+            System.out.println("\n\tAcual player number:"+ actual.getNumPlayer());
             if(actual.getNumPlayer() ==0){
                 nextPlayer = players.get(starts+1);
                 prevPlayer = players.get(players.size()-1);
-            }
-            if(actual.getNumPlayer() == players.size()-1){
+            }else if(actual.getNumPlayer() == players.size()-1){
                 prevPlayer = players.get(starts-1);
                 nextPlayer = players.get(0);
+            }else{
+                nextPlayer = players.get(starts+1);
+                prevPlayer= players.get(starts-1);
             }
-            
+            System.out.println("\n\tIndex prev"+ players.getIndex(prevPlayer)+ "current"+ players.getIndex(actual)
+            + "Next:"+ players.getIndex(nextPlayer));
             //System.out.println("PrevPlayer"+ prevPlayer+ "\t\tNextPlayer"+ nextPlayer);
         } catch (IndexOutOfBoundsException |  NullPointerException e) {
             System.out.println("\n\t Unexpected error");
@@ -146,25 +144,23 @@ public class OldMaidGame {
         startGame(amountPlayers, username);
         Player loser = new Player();
         Player temp=new Player();
+        int aux=0 ,cont =0;
         int index=0, numCard=0;
         try {
             while (players.size()!= 1) {
                 
-                //Asignando referencias
-                if(!hasNextPlayer(actual)){
-                    nextPlayer = players.get(0);
-                }
-                if(!hasPrevPlayer(actual)){
-                    prevPlayer = players.get(players.size()-1);
-                }
+                
                 System.out.println("\n\tPrev"+prevPlayer);
                 System.out.println("\n\tActual"+actual);
                 System.out.println("\n\tNext"+nextPlayer);
+                aux = players.getIndex(prevPlayer);
+                System.out.println("Aux: "+aux);
     
                 if(nextPlayer.getDeck()==null){
                     //Eliminando jugador que se quedó sin cartas
                     index = players.getIndex(nextPlayer);
                     temp = players.remove(index);
+                    System.out.println("uuuu");
                     nextPlayer=players.get(index+1);
                     playersRemoved.enqueue(temp);
                     System.out.println(red+ "\n\t"+temp.getName()+ "has left the game 🚩 ");
@@ -183,22 +179,39 @@ public class OldMaidGame {
                     game.showBackCard(nextPlayer.getDeck(), nextPlayer);
                     numCard = askCard(nextPlayer.getDeck().getSize());
                     pickRightUser(numCard);
+                    
 
                 }else{
-                    System.out.println("\n\tPicking a card from the player on the right!\tThe player is:"
+                    System.out.println("\n\tPicking a card from the player on the right!\n\tThe player is:"
                     + nextPlayer.getName()+ " and the current player is:"+actual.getName()+"\n\n\t"+ nextPlayer.getName()+"cards:\n\n");
                     game.showBackCard(nextPlayer.getDeck(), nextPlayer);
+                    pickRightMachine();
                 }
 
-                pickRightMachine();
+               
 
                 //picks cards from players from the right and switch turns with players from the left
-                System.out.println(prevPlayer);
-                System.out.println(actual);
-                System.out.println(nextPlayer);
-                nextPlayer= actual;
-                actual = prevPlayer;
-                prevPlayer = players.get(players.getIndex(prevPlayer)-1);
+               
+                //Asignando referencias, indices para prev estan al revés 0_0
+                if(!hasNextPlayer(actual)){
+                    System.out.println("*****");
+                    nextPlayer = players.get(0);
+                    actual= prevPlayer;
+                    prevPlayer= players.get(aux-cont);
+                }else if(!hasPrevPlayer(actual)){
+                    System.out.println("++++++");
+                    nextPlayer= actual;
+                    actual=prevPlayer;
+                    prevPlayer = players.get(players.size()-1);
+                }else{
+                    nextPlayer= actual;
+                    actual = prevPlayer;
+                    prevPlayer = players.get(players.size()-aux-1);
+                }
+                cont++;
+                System.out.println("Prev1:"+prevPlayer);
+                System.out.println("Actual1:"+actual);
+                System.out.println("Next:"+nextPlayer);
 
 
                 
@@ -244,16 +257,23 @@ public class OldMaidGame {
     public void pickRightMachine(){
         Random rn = new Random();
        
-        int option = rn.nextInt(nextPlayer.getDeck().getSize());
-        Card aux= game.pickCard(nextPlayer, option);
-        System.out.println("\n\t"+actual.getName()+"  picked card "+option+": "+ aux.getBack() + " from  "+ nextPlayer.getName());
-        actual.getDeck().addToDeck(aux);
-        System.out.println("\n\tNext Deck size:"+nextPlayer.getDeck().getSize() + "\tIndex:"+ option);
-        nextPlayer.getDeck().removeFromDeck(option);
-        System.out.println(blue+"\n\tDicarding" + actual.getName()+ " pairs, if there's pairs..."+reset);
-        Queue<Card> auxR=actual.getDeck().discardPairs(actual);
-        if(!auxR.isEmpty()){
-            game.getRegistros().add(game.getRegistros().size(), auxR);
+        try {
+            int option = rn.nextInt(nextPlayer.getDeck().getSize());
+            if(option==nextPlayer.getDeck().getSize() && option != 0){
+                option= option-1;
+            }
+            Card aux= game.pickCard(nextPlayer, option);
+            System.out.println("\n\t"+actual.getName()+"  picked card "+option+": "+ aux.getBack() + " from  "+ nextPlayer.getName());
+            actual.getDeck().addToDeck(aux);
+            System.out.println("\n\tNext Deck size:"+nextPlayer.getDeck().getSize() + "\tIndex:"+ option);
+            nextPlayer.getDeck().removeFromDeck(option);
+            System.out.println(blue+"\n\tDicarding" + actual.getName()+ " pairs, if there's pairs..."+reset);
+            Queue<Card> auxR=actual.getDeck().discardPairs(actual);
+            if(!auxR.isEmpty()){
+                game.getRegistros().add(game.getRegistros().size(), auxR);
+            }
+        } catch (IndexOutOfBoundsException | NullPointerException e) {
+            //TODO: handle exception
         }
 
     }

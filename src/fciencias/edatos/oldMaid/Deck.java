@@ -1,4 +1,4 @@
-import reference.*;
+	import reference.*;
 
 /**
  * Clase que implementa el mazo
@@ -10,11 +10,25 @@ import reference.*;
 
 
 public class Deck {
-
-     /** Listas doblemente ligadas para cartas */ //
+        
+     /** Listas doblemente ligadas para cartas */ //	
 	DoubleLinkedList<Card> decks;
 
-     /**Constuctor a partir de listas doblemente ligadas*/
+
+	//Card color
+	private final static String red="\033[31m"; 
+	private final static String blue="\033[34m"; 
+	private final static String reset="\u001B[0m";
+	private final static String green="\033[32m"; 
+	private final static String yellow="\033[33m"; 
+	private final static String purple="\033[35m"; 
+	private final static String cyan="\033[36m"; 
+	private final static String white = "\u001B[37m";
+	 
+
+	Queue<Player> auxRegistros;
+
+     /**Constuctor a partir de listas doblemente ligadas*/     
 	public Deck(){
 		this.decks = new DoubleLinkedList<>();
 	}
@@ -23,44 +37,42 @@ public class Deck {
 		this.decks = cards;
 	}
 
-
+        
         /**
 	* Permite añadir carta
         * @param card la carta a agregar
 	*/
-
+        
 	public void addToDeck (Card card){
 		this.decks.add(getSize(),card);
 	}
-
+        
     /**
 	* Permite remover una carta
     * @param i indice de la carta que quieres remover
 	*/
-
+   
        public Card removeFromDeck (int i){
 		return this.decks.remove(i);
 	}
-
+       
     /**
-	* Regresa el tamaño de la baraja
+	* Regresa el tamaño de la baraja 
 	* @return el tamaño de la baraja
-	*/
+	*/   
 	public int getSize (){
 		return decks.size();
 	}
-      
-    
-       
 
+    
 	/**
 	* Regresa apartir de listas doblemente ligadas un mazo con cartas
 	* @return decks
-	*/
+	*/          
 	public DoubleLinkedList<Card> getDecks() {
 		return decks;
 	}
-
+        
     /**
 	* Modifca el mazo apartir de una lista de cartas.
     * @param decks Lista de cartas.
@@ -70,7 +82,7 @@ public class Deck {
 	}
 
 	/**
-	 * Determina si en una lista de cartas hay elementos duplicados, es decir
+	 * Determina si en una lista de cartas hay elementos duplicados, es decir 
 	 * determina si existe un par de cartas iguales en valor.
 	 * @return true si hay par, false en otro caso.
 	 */
@@ -82,7 +94,7 @@ public class Deck {
 				value2 = getDecks().get(k).getValue();
 				if(value1 == value2)
 					return true;
-
+				
 			}
 		}
 		return false;
@@ -92,16 +104,17 @@ public class Deck {
 	 * Remueve los pares de una lista de cartas (si los hay) version.
 	 * @return Queue con los elementos eliminados
 	 */
-	public Queue<Card> discardPairs(String playerNam){
+	public Queue<Card> discardPairs(Player player){
 		Queue<Card> removed = new Queue<>();
 		if(!duplicatedCards()){
+			System.out.println(yellow+"\n\t There isn´t any pairs to discard!! (/◔ ◡ ◔)/"+player.getName()+reset);
 			return removed;
 		}
 		try {
 			DoubleLinkedList<Card> cards = getDecks();
 			int value = 0, value1=0;
 				Card card1 = new Card(), card2 = new Card();
-				System.out.print("\n\tCartas eliminadas de "+playerNam +":");
+				System.out.print("\n\tDiscarded cards from "+player.getName()+":");
 				for(int n = 0; n<getSize(); n++){
 					for(int k=n+1; k<getSize(); k++){
 						value = cards.get(n).getValue();
@@ -117,15 +130,19 @@ public class Deck {
 						}
 					}
 				}
-
+				auxRegistros.enqueue(player);
+		
 		} catch (IndexOutOfBoundsException | NullPointerException e) {
-			System.out.println("\n\tSomething went wrong! D:");
+			//System.out.println("\n\tSomething went wrong! D:");
 			return removed;
 		}
 		return removed; //será de utilidad para el historial
 	}
 
 
+	public boolean isEmpty(){
+		return getDecks().isEmpty();
+	}
 
 	@Override
 	public String toString(){
@@ -133,5 +150,7 @@ public class Deck {
 	}
 
 
-
+ 
 }
+
+

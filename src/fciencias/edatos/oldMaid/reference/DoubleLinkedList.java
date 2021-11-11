@@ -12,10 +12,6 @@ import java.util.Iterator;
  */
 public class DoubleLinkedList<T> implements TDAList<T> {
 
-    @Override
-    public T get(int i) throws IndexOutOfBoundsException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     /**Nodo de la lista */
     private class Node{
         /**Node element */

@@ -1,3 +1,4 @@
+
 package reference;
 import java.util.Iterator;
 
@@ -10,6 +11,11 @@ import java.util.Iterator;
  * @since Estructuras de datos lab 2022-1
  */
 public class DoubleLinkedList<T> implements TDAList<T> {
+
+    @Override
+    public T get(int i) throws IndexOutOfBoundsException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     /**Nodo de la lista */
     private class Node{
         /**Node element */
@@ -18,6 +24,14 @@ public class DoubleLinkedList<T> implements TDAList<T> {
         private Node next;
         /**Prev node */
         private Node prev;
+        
+        //Atributos para swap
+       private int data;  
+        private Node(int d){               
+            data = d;
+            next = null;
+        }
+        
         /**
          * Create Node
          * @param element Node´s element
@@ -55,6 +69,52 @@ public class DoubleLinkedList<T> implements TDAList<T> {
         public Node getPrev(){return prev;}
       }
 
+ //---------------------------- swap ----------------
+    
+    class DoubleLinkedLista{
+        Node head;
+    }
+    
+     public void swap(int n, int m){
+        if (n == m)   // No sé pueden intercambiar si son el mismo elemento
+            return;
+        
+        Node prevN = null, currN = head; //Busca a n
+        while (currN != null && currN.data != n) {
+            prevN = currN;
+            currN = currN.next;
+        }
+ 
+       
+        Node prevM = null, currM = head; //Busca a m
+        while (currM != null && currM.data != m) {
+            prevM = currM;
+            currM = currM.next;
+        }
+
+        if (currN == null || currM == null) //Si no está ninguno de los dos
+            return;
+        
+        if (prevN != null) // Si n no es la cabeza de la lista se hace a m la cabeza
+            prevN.next = currM;
+        else 
+            head = currM;
+ 
+       // Si n no es la cabeza de la lista se hace a n la cabeza
+        if (prevM != null)
+            prevM.next = currN;
+        else // make x the new head
+            head = currN;
+ 
+        // Swap next pointers
+        Node temp = currN.next;
+        currN.next = currM.next;
+        currM.next = temp;
+    }
+    
+    
+    
+    
 
   //--------------------------- Metodos auxiliares -------------------------------------------------------------
     class Iterador implements Iterator<T>{
@@ -198,33 +258,35 @@ public class DoubleLinkedList<T> implements TDAList<T> {
 
         return false;
     }
-    @Override
-    public T get(int i) throws IndexOutOfBoundsException{
-        //Si la lista es vacia
-        if(isEmpty()){
-            System.out.println("\n\tLa lista está vacía");
-            return null;
-        }
-        Node iterador1 = head;
-        Node iterador2 = tail;
-        int limit = (size()/2)+1;
-        if(i>size()-1 || i<0){
-            throw new IndexOutOfBoundsException();
-
-        }
-        for(int n =0, m =size()-1; n<limit; n++,m--){
-            if(n == i){
-                return iterador1.getElement();
-
-            }
-            iterador1 = iterador1.getNext();
-            if(m==i){
-                return iterador2.getElement();
-            }
-            iterador2 = iterador2.getPrev();
-        }
-        return null;
-    }
+    
+    
+   /* public Node getNode(int i){
+		Node current = this.head;
+		if (i > this.size|| i < 0)
+		{	
+			return null;
+		}		
+		for(int k = 0; k < i; k++)
+		{
+			current = current.next;
+		}
+		return current;
+	}
+    
+       public void swap(int i, int j){
+           Node n = getNode(i);
+           Node m = getNode(j);
+           T aux = n.getElement();
+           n.setElement(m.getElement());
+           m.setElement(aux);
+       }
+   */    
+    
+    
+    
+    
+    
+    
     @Override
     public boolean isEmpty(){
         boolean empty = (head == null) ? true : false;
@@ -334,7 +396,7 @@ public class DoubleLinkedList<T> implements TDAList<T> {
 
         Node iterador = head;
         while(iterador != null){
-            formato += iterador.getElement() + "\n";
+            formato += iterador.getElement() + " \n";
             iterador = iterador.getNext();
         }
 

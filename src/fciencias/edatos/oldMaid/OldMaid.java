@@ -18,7 +18,7 @@ public class OldMaid {
 
     DoubleLinkedList<Queue<Card>> registros = new DoubleLinkedList<>();
 
-    Queue<Integer>turnos;
+    Queue<Card> stolen = new Queue<>();
     
 
     //creando en mazo de todas las cartas
@@ -203,14 +203,21 @@ public class OldMaid {
         //Suponiendo que ya se dioel numero de carta a quitar
         Card picked = new Card();
 
+        if(card==0){
+            return picked = nextPLayer.getDeck().removeFromDeck(0);
+        }
         try {
+            
             for(int n = 0; n<nextPLayer.getDeck().getSize(); n++)
-                if(card == n)
-                    return picked = nextPLayer.getDeck().removeFromDeck(n);
+                if(card == n){
+                    stolen.enqueue(picked = nextPLayer.getDeck().removeFromDeck(n));
+                    return picked;
+                }
+                    
                 
             
         } catch (IndexOutOfBoundsException | NullPointerException e) {
-            System.out.println("\n\tIndex out of range, you have not such amount of cards, please"+
+            System.out.println("\n\tIndex out of range, you have not such amount of cards, please "+
             "try again with a valid number. (¬_¬)");
             return picked;
         }
@@ -228,9 +235,16 @@ public class OldMaid {
      */
     public  void showBackCard( Deck playerDeck, Player player){
         //System.out.println("Pick one card from "+ namePlayer + " cards\n");
-        System.out.println("\n\n\t"+player.getName() + " cards\n");
-        for(int n=0; n<playerDeck.getSize();n++)
-            System.out.print("\t"+playerDeck.getDecks().get(n).getBack()+ " "+(n+1));
+        try {
+            System.out.println("\n\n\t"+player.getName() + " cards\n");
+            for(int n=0; n<playerDeck.getSize();n++)
+                System.out.print("\t"+playerDeck.getDecks().get(n).getBack()+ " "+(n+1));
+            
+            
+        } catch (NullPointerException| IndexOutOfBoundsException e) {
+            //TODO: handle exception
+            System.out.print("*");
+        }
         
     }
 
@@ -268,24 +282,6 @@ public class OldMaid {
 		}
 		return "\n"+names;
 	}
-
-    /*
-     * Guarda los turnos jugadores en un queue.
-     * Turnos de 0 a n-1 jugadores
-     */
-    public void asignTurn(int num){
-        turnos = new Queue<>();
-        for(int n= 0; n<num;n++)
-            turnos.enqueue(n);
-        
-		
-
-    }
-
-    public Queue<Integer> getTurns(){
-        return turnos;
-    }
-
 
 
 

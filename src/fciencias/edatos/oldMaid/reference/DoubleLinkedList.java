@@ -239,6 +239,19 @@ public class DoubleLinkedList<T> implements TDAList<T> {
         return -1;
     }
 
+    public int getIndex2(T element){
+        if(contains(element)){
+            Node iterador = head;
+            for(int n=0; n<size();n++){
+                if(element.equals(get(n))){
+                    return n;
+                }
+                iterador = iterador.getNext();
+            }
+        }
+        return 1;
+    }
+
     @Override
     public boolean isEmpty(){
         boolean empty = (head == null) ? true : false;

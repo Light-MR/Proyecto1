@@ -1,137 +1,109 @@
+import java.util.Scanner;
 import reference.*;
 
+
 /**
- * Clase que implementa el mazo
+ * Clase principal del juego
+ * @author Reyes Ramos Luz María
  * @author Julieta Vargas Gutiérrez 318341945
- * @author Reyes Ramos Luz Marìa  318211073
- * @version 1.0 Noviembre 2021.
- * @since Estructuras de datos 2022-1.
+ * @version 1.0 Noviembre 2021
+ * @since EDD-2022-1
  */
-
-
-public class Deck {
-
-     /** Listas doblemente ligadas para cartas */ //
-	DoubleLinkedList<Card> decks;
-
-     /**Constuctor a partir de listas doblemente ligadas*/
-	public Deck(){
-		this.decks = new DoubleLinkedList<>();
-	}
-
-	public Deck(DoubleLinkedList<Card> cards){
-		this.decks = cards;
-	}
-
-
-        /**
-	* Permite añadir carta
-        * @param card la carta a agregar
-	*/
-
-	public void addToDeck (Card card){
-		this.decks.add(getSize(),card);
-	}
-
-    /**
-	* Permite remover una carta
-    * @param i indice de la carta que quieres remover
-	*/
-
-       public Card removeFromDeck (int i){
-		return this.decks.remove(i);
-	}
-
-    /**
-	* Regresa el tamaño de la baraja
-	* @return el tamaño de la baraja
-	*/
-	public int getSize (){
-		return decks.size();
-	}
-      
-    
+public class Main {
+    private final static String red="\033[31m"; 
+	private final static String blue="\033[34m"; 
+	private final static String reset="\u001B[0m";
+	private final static String green="\033[32m"; 
+	private final static String yellow="\033[33m"; 
+	private final static String purple="\033[35m"; 
+	private final static String cyan="\033[36m"; 
+	private final static String white = "\u001B[37m";
        
-
-	/**
-	* Regresa apartir de listas doblemente ligadas un mazo con cartas
-	* @return decks
-	*/
-	public DoubleLinkedList<Card> getDecks() {
-		return decks;
-	}
-
-    /**
-	* Modifca el mazo apartir de una lista de cartas.
-    * @param decks Lista de cartas.
-	*/
-	public void setDecks(DoubleLinkedList<Card> decks) {
-		this.decks = decks;
-	}
-
-	/**
-	 * Determina si en una lista de cartas hay elementos duplicados, es decir
-	 * determina si existe un par de cartas iguales en valor.
-	 * @return true si hay par, false en otro caso.
-	 */
-	public boolean duplicatedCards(){
-		int value1 = 0, value2 = 0;
-		for(int n = 0; n<getSize()-1; n++){
-			for(int k = n+1; k<getSize(); k++){
-				value1 = getDecks().get(n).getValue();
-				value2 = getDecks().get(k).getValue();
-				if(value1 == value2)
-					return true;
-
-			}
+        private void sleep(int time){
+        try {
+			System.out.print("\n\t......\n\n");
+			Thread.sleep(time);
+		} catch (InterruptedException e) {
+			System.out.println("\nSomething failed D:");
 		}
-		return false;
-	}
+    }		
+    
+     
+       
+    public static void main(String[] args) {
+          
+         System.out.println("\t"+yellow + "\t★ ★ 「" + white + " W E L C O M E  - TO - O L D - M A I D - G A M E "+ yellow+ "」★ ★ " + reset);
+          
+         Scanner scanner = new Scanner(System.in);
+         Scanner scanner1 = new Scanner(System.in);
+           
 
-	/**
-	 * Remueve los pares de una lista de cartas (si los hay) version.
-	 * @return Queue con los elementos eliminados
-	 */
-	public Queue<Card> discardPairs(String playerNam){
-		Queue<Card> removed = new Queue<>();
-		if(!duplicatedCards()){
-			return removed;
-		}
-		try {
-			DoubleLinkedList<Card> cards = getDecks();
-			int value = 0, value1=0;
-				Card card1 = new Card(), card2 = new Card();
-				System.out.print("\n\tCartas eliminadas de "+playerNam +":");
-				for(int n = 0; n<getSize(); n++){
-					for(int k=n+1; k<getSize(); k++){
-						value = cards.get(n).getValue();
-						value1 = cards.get(k).getValue();
-						if(value == value1){
-							card1= cards.remove(n);
-							card2 = cards.remove(k-1);
-							removed.enqueue(card1);
-							removed.enqueue(card2);
-							n=0;
-							k= n+1;
-							System.out.print("\t"+card1 + "\n\t"+ card2+"\n\n");
-						}
-					}
+         do{
+           System.out.println(blue+ "[1] How to play \n"+
+              blue+ "[2] Start the game \n"+
+              blue+ "[3] Close \n"  
+              //"[5]Jugar de nuevo ");
+                  );
+
+            int opcion = scanner.nextInt(); //ME FALTA SI ES STRING
+
+            switch(opcion){
+                case 1:
+                    System.out.println("\t" + green + "\t"+ "🃏      DESCRIPTION       🃏 " );
+                     System.out.println("\t" + yellow + " The goal is to form and discard pairs of cards, \n"+
+                           "\t" + yellow + "and not to be left with the odd card (a joker) at the end. \n"+
+                           "\t" + yellow + "In this game you don't look for a winner,\n" +
+                           "\t" + yellow + "you just look to avoid to avoid being the loser\n");
+                     
+                    System.out.println("\t" + green + "\t"+ " INSTRUCTIONS ");   
+                     System.out.println("\t" + yellow + "  The deck of cards is shuffled and one card is removed\n"+
+                           "\t" + yellow + "The deck will be distributed among the players and the pairs will be withdrawn \n"+
+                           "\t" + yellow + "In the following turns you will steal a card from the player before you\n" +
+                           "\t" + yellow + "and if you have pairs they will be removed if you stay whith the joyer" );                    
+                        System.out.println("\t" + "\t" +  "\t" + red + "YOU LOSE" );
+                    
+                    break;
+                    
+                case 2:
+                    int players = 0;
+		boolean repetir = true;
+                       DoubleLinkedList<Player> player = new DoubleLinkedList<>();
+               System.out.println("\t" + purple + "What´s your name?");
+               
+                    String name = scanner1.nextLine();
+               
+                while(repetir){
+			System.out.println("\t" + purple + "Enter the number of players");
+			   try{
+				players = scanner.nextInt();
+				if(players>=2 && players<10){
+                                     repetir = false;
+				}else{
+					System.out.println( red + "Enter a number from 2 to 10");
 				}
+			}catch(Exception e){
+				System.out.println( red + "You must enter a number");
+				scanner.next();
+			}
 
-		} catch (IndexOutOfBoundsException | NullPointerException e) {
-			System.out.println("\n\tSomething went wrong! D:");
-			return removed;
 		}
-		return removed; //será de utilidad para el historial
-	}
-
-
-
-	@Override
-	public String toString(){
-		return getDecks().toString();
-	}
-
-
-
+		 repetir = true;
+		OldMaidGame g = new OldMaidGame();
+		
+		g.game(players, name);
+		
+                 break;       
+                case 3:
+                    return;
+                    
+                default:
+                    System.out.println("Opción inválida");
+            }
+         
+        
+          } while(true);        
+                 
+         
+    }
+      
 }

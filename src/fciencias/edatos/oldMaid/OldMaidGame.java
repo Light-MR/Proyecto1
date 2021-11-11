@@ -1,8 +1,5 @@
 import java.util.Random;
-
-import javax.management.openmbean.OpenDataException;
-import javax.swing.plaf.synth.SynthScrollPaneUI;
-
+import java.util.Scanner;
 import reference.*;
 /**
  * Clase que representa la partidfa de Old Maid
@@ -18,6 +15,8 @@ public class OldMaidGame {
 
     /**Players */
     DoubleLinkedList<Player> players;
+
+    Scanner sc  = new Scanner(System.in);
     
 
     /**Jugador de la derecha, izquierda y jugador actual */
@@ -109,6 +108,8 @@ public class OldMaidGame {
             System.out.println(white+ "\n\t★"+ actual.getName()+ " starts the game!!"+ reset);
             //Asignando referencias.
             players.get(starts).setTurn(1);
+
+            /*
             if(actual.getNumPlayer()!=0 && actual.getNumPlayer()!= players.size()-1){
                 nextPlayer = players.get(starts+1);
                 prevPlayer= players.get(starts-1);
@@ -120,8 +121,8 @@ public class OldMaidGame {
             if(actual.getNumPlayer() == players.size()-1){
                 prevPlayer = players.get(starts-1);
                 nextPlayer = players.get(0);
-            }
-
+            }*/
+            
             //System.out.println("PrevPlayer"+ prevPlayer+ "\t\tNextPlayer"+ nextPlayer);
         } catch (IndexOutOfBoundsException |  NullPointerException e) {
             System.out.println("\n\t Unexpected error");
@@ -141,27 +142,51 @@ public class OldMaidGame {
 		}
     }
     
-    public void game(int amountPlayers, String username, int numCard){
+    public Player game(int amountPlayers, String username, int numCard){
         startGame(amountPlayers, username);
-        int index=0;
+        Player loser = new Player();
         Player temp=new Player();
+        int index=0;
         try {
             while (players.size()!= 1) {
-                if(players.get(index).getDeck().isEmpty()){
-                    temp = players.remove(index);
-                    playersRemoved.enqueue(temp);
-                    index=0;
+                
+                //Asignando referencias
+                if(!hasNextPlayer(actual)){
+                    nextPlayer = players.get(0);
                 }
+                if(!hasPrevPlayer(actual)){
+                    prevPlayer = players.get(players.size());
+                }
+    
+                if(nextPlayer.getDeck().isEmpty()){
+                    //Eliminando jugador que se quedó sin cartas
+                    index = players.getIndex(nextPlayer);
+                    temp = players.remove(index);
+                    nextPlayer=players.get(index+1);
+                    playersRemoved.enqueue(temp);
+                    System.out.println(red+ "\n\t"+temp.getName()+ "has left the game 🚩 ");
+                    
+                    
+                    
+                   /////
+                }
+
                 System.out.println("\n\tPick a card from the player on your right!\tThe player is:"
                 + nextPlayer.getName()+ "\n\n\t"+ nextPlayer.getName()+"cards:\n\n");
                 game.showBackCard(nextPlayer.getDeck(), nextPlayer);
+
                 //robar carta jugador derecha
                 if(actual.getNumPlayer()==0){//si es el usuario
                     pickRightUser(numCard);
 
                 }
                 pickRightMachine();
-                
+
+                //picks cards from players from the right and switch turns with players from the left
+                nextPlayer= actual;
+                actual = prevPlayer;
+                prevPlayer = players.get(players.getIndex(prevPlayer)-1);
+
 
                 
 
@@ -170,7 +195,11 @@ public class OldMaidGame {
             }
         } catch (IndexOutOfBoundsException | NullPointerException e) {
             System.out.println("\n\tSomething is wrong  with me :(");
+            System.out.println("\n\tPlayer List size:"+ players.size();
+            return loser;
         }
+        System.out.println(loser = players.get(0));
+        return loser;
     }
 
     private void pickRightUser(int numCard){
@@ -187,6 +216,8 @@ public class OldMaidGame {
 
         //ACOMODO DE CARTAS
         System.out.println(yellow + "\n\tSort your cards?"+reset);
+    
+
         
         
         if(!auxR.isEmpty()){
@@ -209,4 +240,37 @@ public class OldMaidGame {
         }
 
     }
+
+    private boolean hasNextPlayer(Player player){
+        return players.getIndex(players.get(players.getIndex(player)+1)) !=-1;
+    }
+    private Boolean hasPrevPlayer(Player player){
+        return players.getIndex(players.get(players.getIndex(player)-1)) !=-1;
+    }
+
+    public int askNumbInput(String message, int[]range){
+        int number;
+        String userInput ="";
+        while (!userInput.equals("\n")) {
+            try {
+                //while () {
+                    System.out.println("\n\tType your option:");
+                    number= Integer.parseInt(sc.nextLine());
+
+                    System.out.println("Done?, then press enter");
+                    userInput= sc.nextLine();
+                    if(userInput.equals("\n")){
+                        return number;
+                    }
+                    
+                //}
+            } catch (Exception e) {
+                //TODO: handle exception
+            }
+        }
+
+        return 0;
+    }
+
+    
 }

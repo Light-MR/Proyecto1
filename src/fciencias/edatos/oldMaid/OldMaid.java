@@ -104,7 +104,7 @@ public class OldMaid {
      * @return Lista con n jugadores.
      */
     public DoubleLinkedList<Player> generatePlayers(int n){
-        if(n<2 || n>10){
+        if(n<1 || n>10){
             System.out.println("Número de jugadores fuera de rango 🚩🚩🚩");
             return new DoubleLinkedList<>();
         }

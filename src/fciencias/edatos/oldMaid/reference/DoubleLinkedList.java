@@ -1,12 +1,5 @@
-<<<<<<< HEAD
-import java.util.Iterator;
-
-=======
 package reference;
 import java.util.Iterator;
-
-
->>>>>>> 3ae097d93650e5d95f7bbf67f6f62b0aa05a66f7
 /**
  * Practica 2: Double Linked List.
  * @author Reyes Ramos Luz María 318211073
@@ -64,19 +57,12 @@ public class DoubleLinkedList<T> implements TDAList<T> {
   //--------------------------- Metodos auxiliares -------------------------------------------------------------
     class Iterador implements Iterator<T>{
         Node nuevoNodo;
-<<<<<<< HEAD
         /*** Constructor por omision*/
-=======
-        /**
-         *  Constructor por omision
-         */
->>>>>>> 3ae097d93650e5d95f7bbf67f6f62b0aa05a66f7
         public Iterador(){
             nuevoNodo = head;
         }
         /**
          * Ve si hay mas elementos
-<<<<<<< HEAD
         */
         @Override
         public boolean hasNext() {
@@ -88,22 +74,6 @@ public class DoubleLinkedList<T> implements TDAList<T> {
         /**
         * Regresa el siguiente elemento 
         */
-=======
-         */
-        
-        @Override
-        public boolean hasNext() {
-            if(nuevoNodo.getNext().getElement() != null)
-                return true;
-            
-            return false;
-        }
-        
-        /**
-        * Regresa el siguiente elemento 
-        */
-
->>>>>>> 3ae097d93650e5d95f7bbf67f6f62b0aa05a66f7
         @Override
         public T next() {
             return nuevoNodo.getElement();
@@ -204,24 +174,12 @@ public class DoubleLinkedList<T> implements TDAList<T> {
         Node iterador2 = tail;
         int limit = (size()/2)+1;
         for(int n =0, m = size()-1; n<limit; n++,m--){
-<<<<<<< HEAD
             if(e.equals(iterador1.getElement()))
                 return true;
             
             iterador1 = iterador1.getNext();
             //Solo recorre la  mitad
             if(e.equals(iterador2.getElement())){
-=======
-            //System.out.println("n = " + n + "m = "+ m);
-            if(e.equals(iterador1.getElement())){
-                //System.out.println("E1: "+ iterador1.getElement());
-                return true;
-            }
-            iterador1 = iterador1.getNext();
-            //Solo recorre la  mitad
-            if(e.equals(iterador2.getElement())){
-                //System.out.println("E2: "+ iterador2.getElement());
->>>>>>> 3ae097d93650e5d95f7bbf67f6f62b0aa05a66f7
                 return true;
             }
             iterador2 = iterador2.getPrev();
@@ -257,7 +215,6 @@ public class DoubleLinkedList<T> implements TDAList<T> {
         }
         return null;
     }
-<<<<<<< HEAD
 
     /**
      * Obtiene el indice de un elemento dado de la lista.
@@ -282,8 +239,6 @@ public class DoubleLinkedList<T> implements TDAList<T> {
         return -1;
     }
 
-=======
->>>>>>> 3ae097d93650e5d95f7bbf67f6f62b0aa05a66f7
     @Override
     public boolean isEmpty(){
         boolean empty = (head == null) ? true : false;
@@ -393,11 +348,7 @@ public class DoubleLinkedList<T> implements TDAList<T> {
 
         Node iterador = head;
         while(iterador != null){
-<<<<<<< HEAD
             formato +="\t"+ iterador.getElement() + "\t";
-=======
-            formato += "\t"+ iterador.getElement() + " \n";
->>>>>>> 3ae097d93650e5d95f7bbf67f6f62b0aa05a66f7
             iterador = iterador.getNext();
         }
 
@@ -416,8 +367,4 @@ public class DoubleLinkedList<T> implements TDAList<T> {
 
 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 3ae097d93650e5d95f7bbf67f6f62b0aa05a66f7
 }

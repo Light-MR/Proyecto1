@@ -45,7 +45,7 @@ public class Main {
                 //generaPlayer();
                 //distribuyeCartas(); */
 		OldMaidGame g = new OldMaidGame();
-		g.startGame(7, "Mary");
+		g.game(7, "Mary", 4);
 		
                 
         

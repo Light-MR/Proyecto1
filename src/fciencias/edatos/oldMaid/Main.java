@@ -8,7 +8,7 @@ import reference.*;
  * @author Julieta Vargas Gutiérrez 318341945
  * @version 1.0 Noviembre 2021
  * @since EDD-2022-1
- */
+*/
 public class Main {
     private final static String red="\033[31m"; 
 	private final static String blue="\033[34m"; 
@@ -19,17 +19,7 @@ public class Main {
 	private final static String cyan="\033[36m"; 
 	private final static String white = "\u001B[37m";
        
-        private void sleep(int time){
-        try {
-			System.out.print("\n\t......\n\n");
-			Thread.sleep(time);
-		} catch (InterruptedException e) {
-			System.out.println("\nSomething failed D:");
-		}
-    }		
-    
-     
-       
+
     public static void main(String[] args) {
          System.out.println("\t"+yellow + "\t★ ★ 「" + white + " W E L C O M E  - TO - O L D - M A I D - G A M E "+ yellow+ "」★ ★ " + reset);
           
@@ -41,8 +31,7 @@ public class Main {
              try{
            System.out.println(blue+ "[1] How to play \n"+
               blue+ "[2] Start the game \n"+
-              blue+ "[3] History \n" +     
-              blue +"[4] Close");
+              blue +"[3] Close");
                   
              
                      
@@ -93,29 +82,8 @@ public class Main {
 		g.game(players, name);
 		
                  break;       
-              
-                 
+        
                 case 3:
-                    System.out.println("Aqui va el historial"); //Ya esta puesto es cosa de concatenarlo
-                  /**  
-                 boolean repe = true;
-		System.out.println("\t" + green + "Do you want to know the history of the game?"
-                         +"\tYes / No");
-		while(repe){
-			history = scanner.next();// ACA VA EL HISTORIAL
-			if(history.equalsIgnoreCase("Yes")){
-				System.out.println("The history ");
-				repe = false;
-			}else if (history.equalsIgnoreCase("No")){
-				System.out.println("Ok");
-				repe = false;
-			}else{
-				System.out.println(red +"Enter a Yes or No"+reset);
-			}
-		}
-                */
-                break;
-                case 4:
                     return;   
                 default:
                     System.out.println("Opción inválida");

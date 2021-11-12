@@ -31,9 +31,6 @@ public class Main {
      
        
     public static void main(String[] args) {
-        
-          System.out.println("IS THIS WORKING?" + actual.swap(2,3));
-          
          System.out.println("\t"+yellow + "\t★ ★ 「" + white + " W E L C O M E  - TO - O L D - M A I D - G A M E "+ yellow+ "」★ ★ " + reset);
           
          Scanner scanner = new Scanner(System.in);
@@ -44,9 +41,9 @@ public class Main {
              try{
            System.out.println(blue+ "[1] How to play \n"+
               blue+ "[2] Start the game \n"+
-              blue+ "[3] Close \n"  
-              //"[5]Jugar de nuevo ");
-                  );
+              blue+ "[3] History \n" +     
+              blue +"[4] Close");
+                  
              
                      
             int opcion = scanner.nextInt(); 
@@ -96,23 +93,42 @@ public class Main {
 		g.game(players, name);
 		
                  break;       
+              
+                 
                 case 3:
-                    return;
-                    
+                    System.out.println("Aqui va el historial"); //Ya esta puesto es cosa de concatenarlo
+                  /**  
+                 boolean repe = true;
+		System.out.println("\t" + green + "Do you want to know the history of the game?"
+                         +"\tYes / No");
+		while(repe){
+			history = scanner.next();// ACA VA EL HISTORIAL
+			if(history.equalsIgnoreCase("Yes")){
+				System.out.println("The history ");
+				repe = false;
+			}else if (history.equalsIgnoreCase("No")){
+				System.out.println("Ok");
+				repe = false;
+			}else{
+				System.out.println(red +"Enter a Yes or No"+reset);
+			}
+		}
+                */
+                break;
+                case 4:
+                    return;   
                 default:
                     System.out.println("Opción inválida");
             }
-         
+              
+            
           
             }catch(Exception e){
              System.out.println( red + "You must enter a number");
 				scanner.next(); 
             }        
-          } while(true);        
+          } while(true);       
          
-           
-         
-    
     }
     
        

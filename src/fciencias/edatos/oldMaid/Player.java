@@ -10,24 +10,23 @@ import reference.*;
 public class Player {
 
     //Atributos 
-	 
+	
 	
 	/**Cartas del jugador  */
-    Deck deck;      
-	
+           Deck deck;  
+         
+        /** Crea la mano del jugador */
+           
+        private DoubleLinkedList<Card> hand;
 	/**Nombre del jugador */ 
 	String name;
 
 
-    /**Turno del jugador */
+        /**Turno del jugador */
 	int turn;
  
 	/**Number of player */
 	int num;
-
-
-	
-
 
         /***********************************************
         **           CONSTRUCTORES                    **
@@ -50,6 +49,13 @@ public class Player {
 		this.num = num;
 		this.deck = new Deck();
 	}
+        /**
+      * Metodo que regresa la mano del jugador
+      * @return mano del jugador
+      */
+       public DoubleLinkedList<Card> getHand(){
+         return hand;
+     }
         
         
         /***********************************************
@@ -108,19 +114,44 @@ public class Player {
 		this.turn = turn;
 	}
 	
-	
+	/**
+	 * Obtiene el numero del jugador
+	 * @return el turno del jugador
+	 */
 	
 	public int getNumPlayer(){
 		return num;
 	}
 
-	
-
+       /**
+       * Método para imprimir la información del jugador
+       * @return la cadena de información
+        */
 	@Override
 	public String toString(){
 		return "\n\nName:" +name+"" + "\n\nCards:\t\n" + "\t"+deck.toString()+"\n\n" ;
 	}
 
-
-	
+      //Metodo que intercambia las posiciones de las cartas
+     public void swap(int i, int j){
+      if(hand.size()>1){
+         if(i<j){
+            Card temp = hand.remove(i);
+            hand.add(i,hand.remove(j-1));
+            hand.add(j,temp);
+         }else{
+            Card temp = hand.remove(j);
+            hand.add(j,hand.remove(i-1));
+            hand.add(i,temp);
+         }
+    
+      
+        }
+     }
 }
+     
+
+
+      
+	
+

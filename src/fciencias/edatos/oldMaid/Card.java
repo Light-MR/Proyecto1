@@ -141,7 +141,10 @@ import reference.*;
 		return backCard;
 	}
 
-	
+	/**
+       * Método para imprimir la información de la carta
+       * @return  cadena de información de la carta
+        */
 
 	@Override 
 	public String toString(){
@@ -213,8 +216,6 @@ import reference.*;
 				break;
 		}
 	}
-
-	
 
 
 

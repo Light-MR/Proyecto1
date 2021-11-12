@@ -8,7 +8,7 @@ import reference.*;
  * @author Julieta Vargas Gutiérrez 318341945
  * @version 1.0 Noviembre 2021
  * @since EDD-2022-1
- */
+*/
 public class Main {
     private final static String red="\033[31m"; 
 	private final static String blue="\033[34m"; 
@@ -31,8 +31,7 @@ public class Main {
              try{
            System.out.println(blue+ "[1] How to play \n"+
               blue+ "[2] Start the game \n"+
-              blue+ "[3] History \n" +     
-              blue +"[4] Close");
+              blue +"[3] Close");
                   
              
                      
@@ -83,12 +82,8 @@ public class Main {
 		g.game(players, name);
 		
                  break;       
-              
-                 
+        
                 case 3:
-                 	System.out.println("\n\tHISTORIAL\n\n "+g.getHistorial()); 
-                break;
-                case 4:
                     return;   
                 default:
                     System.out.println("Opción inválida");

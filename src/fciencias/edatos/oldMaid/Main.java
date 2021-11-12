@@ -31,6 +31,8 @@ public class Main {
      
        
     public static void main(String[] args) {
+        
+          System.out.println("IS THIS WORKING?" + actual.swap(2,3));
           
          System.out.println("\t"+yellow + "\t★ ★ 「" + white + " W E L C O M E  - TO - O L D - M A I D - G A M E "+ yellow+ "」★ ★ " + reset);
           
@@ -39,14 +41,15 @@ public class Main {
            
 
          do{
+             try{
            System.out.println(blue+ "[1] How to play \n"+
               blue+ "[2] Start the game \n"+
               blue+ "[3] Close \n"  
               //"[5]Jugar de nuevo ");
                   );
-
-            int opcion = scanner.nextInt(); //ME FALTA SI ES STRING
-
+             
+                     
+            int opcion = scanner.nextInt(); 
             switch(opcion){
                 case 1:
                     System.out.println("\t" + green + "\t"+ "🃏      DESCRIPTION       🃏 " );
@@ -97,13 +100,21 @@ public class Main {
                     return;
                     
                 default:
-                    System.out.println("Invalid option");
+                    System.out.println("Opción inválida");
             }
          
-        
+          
+            }catch(Exception e){
+             System.out.println( red + "You must enter a number");
+				scanner.next(); 
+            }        
           } while(true);        
-                 
          
+           
+         
+    
     }
-      
+    
+       
+         
 }

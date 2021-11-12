@@ -1,4 +1,4 @@
-	import reference.*;
+import reference.*;
 
 /**
  * Clase que implementa el mazo
@@ -28,7 +28,7 @@ public class Deck {
 
 	Queue<Player> auxRegistros;
 
-     /**Constuctor a partir de listas doblemente ligadas*/     
+        /**Constuctor a partir de listas doblemente ligadas*/     
 	public Deck(){
 		this.decks = new DoubleLinkedList<>();
 	}
@@ -47,9 +47,9 @@ public class Deck {
 		this.decks.add(getSize(),card);
 	}
         
-    /**
+       /**
 	* Permite remover una carta
-    * @param i indice de la carta que quieres remover
+        * @param i indice de la carta que quieres remover
 	*/
    
        public Card removeFromDeck (int i){
@@ -133,17 +133,26 @@ public class Deck {
 				auxRegistros.enqueue(player);
 		
 		} catch (IndexOutOfBoundsException | NullPointerException e) {
-			//System.out.println("\n\tSomething went wrong! D:");
 			return removed;
 		}
-		return removed; //será de utilidad para el historial
+		return removed;
 	}
 
+        
+        
+        /**
+         * Metodo boolean que nos dice si el mazo está vacio
+         * @return Sí el mazo esta vacio 
+         */
 
 	public boolean isEmpty(){
 		return getDecks().isEmpty();
 	}
-
+      
+        /**
+         * Método para imprimir la información del mazo
+         * @return la cadena de información del mazo
+        */
 	@Override
 	public String toString(){
 		return getDecks().toString();
@@ -152,4 +161,6 @@ public class Deck {
 
  
 }
+
+
 

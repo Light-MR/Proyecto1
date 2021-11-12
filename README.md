@@ -15,6 +15,12 @@ obtener un índice dado un elemento, los indices obtenidos no coincídian con lo
 
 Además, debido a que no se tiene la facilidad de acceso que posee un arreglo, fue complicado iterar con respecto a la lista de jugadores, ya que las posiciones y tamaño no son fijos, esto da como resultado posibles errores en las referencias a un elemento, en concreto para este proyecto a los atributos actual, prePlayer, nextPlayer en la clase OldMaidGame.
 
+
+
+Por otro lado, al mismo tiempo se tuvieron múltiples inconvenientes técnicos, a uno de los intefrantes del equipo le fue complicada la ejecución del programa debido a la codificación de cáracteres que utiliza Windows.
+
+
+
 ## Compilación y ejecución 
 Para compilar la practica se debe usar ant build y ant jar
 Para ejecutar ant run

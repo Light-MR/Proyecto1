@@ -11,20 +11,20 @@ public class OldMaid {
 
     /**Contiene el mazo de las 51 cartas */
     private DoubleLinkedList<Card> allCards;
-
+   
 
     /**Contiene la cantidad total de jugadores */
     private DoubleLinkedList<Player> players;
 
+      /** Crea los registro apartir de una lista doblemente ligada */
     DoubleLinkedList<Queue<Card>> registros = new DoubleLinkedList<>();
 
+    /** Apartir de una cola crea la carta robada */
     Queue<Card> stolen = new Queue<>();
     
-
-    //creando en mazo de todas las cartas
     /**
-     * Genera un deck con las 51 cartas de inicio del juego.
-     * @return
+     * Genera un deck con las 51 cartas de inicio del juego
+     * @return cards
      */
     public Deck generateCards(){
        
@@ -45,6 +45,11 @@ public class OldMaid {
         asignValue(cards.getDecks());
         return cards ;
     }
+    /**
+     * Crea las cartas de manera gráfica 
+     * param allCards
+     * @return allCards de manerca gráfica
+     */
 
     private DoubleLinkedList<Card>  auxCreateCards(DoubleLinkedList<Card> allCards ){
         String[] cards = {"🂡","🃁", "🂱", "🃑",     "🂢", "🃂", "🂲", "🃒"   
@@ -115,7 +120,14 @@ public class OldMaid {
         return players;
 
     }
+    
     //Revolver/ Barajear cartas
+    
+    /**
+     * Barajea todas las cartas del mazo
+     * @param allCard Número de jugadores que participarán en el juego.
+     * @return la baraja en forma aleatoria .
+     */
     public Deck shuffle(Deck allCards){
         Queue<Integer> index = auxShuffle();
         int i =0;
@@ -126,14 +138,12 @@ public class OldMaid {
             index.dequeue();
             shuffle.add(n, copy.get(i));
         }
-        //System.out.println("+++++++++"+shuffle);
-
-
-
+       
         return new Deck(shuffle);
     }
 
     //auxiliar para barajear cartas
+    
     /*
      * Regresa una cola con numeros random sin repeticiones 
      * del 0 al 50, esto será de ayuda para utilizarse como 
@@ -157,6 +167,11 @@ public class OldMaid {
 
     //----------------------Repartir cartas
     
+      /**
+     * Distribuye las cartas a cada jugador
+     * @param allCards de la baraja
+     * @return las cartas distruidas para cada uno de los jugadores
+     */
     public void distributeCards(Deck allCards){
         Card temp = new Card();
         try {
@@ -191,16 +206,13 @@ public class OldMaid {
 
     }
 
-    //Turno, este debe ser en sentido de las agujas del reloj ....Elegir carta de otro jugador a su derecha.
-
     /**
      * Elige una carta de las cartas del siguiente jugador.
      * @param nextPLayer El jugador al que se le quitará una carta.
      * @param card Numero de carta a descartar, debe estar dentro del rango de cartas
      * @return La carta que fue descartada
      */
-    public Card pickCard(Player nextPLayer,int card){ //version user
-        //Suponiendo que ya se dioel numero de carta a quitar
+    public Card pickCard(Player nextPLayer,int card){ 
         Card picked = new Card();
 
         if(card==0){
@@ -234,7 +246,6 @@ public class OldMaid {
      * @param playerDeck Las cartas del otro jugador.
      */
     public  void showBackCard( Deck playerDeck, Player player){
-        //System.out.println("Pick one card from "+ namePlayer + " cards\n");
         try {
             System.out.println("\n\n\t"+player.getName() + " cards\n");
             for(int n=0; n<playerDeck.getSize();n++)
@@ -242,30 +253,63 @@ public class OldMaid {
             
             
         } catch (NullPointerException| IndexOutOfBoundsException e) {
-            //TODO: handle exception
             System.out.print("*");
         }
         
     }
+    
+    /**
+    * Obtiene todas las cartas apartir de una lista doblemente ligada
+    * @return allCards
+     */
 
     public DoubleLinkedList<Card> getAllCards(){
         return allCards;
     }
+    /**
+     * Modifica todas las cartas
+     * @param cards de una lista doblemente ligada
+     * @param allCards las cartas
+   */
+    
     public void setAllCards(DoubleLinkedList<Card> cards){
         this.allCards = cards;
     }
+    
+      /**
+    * Obtiene los jugadores apartir de una lista doblemente ligada
+    * @return players 
+     */
+
     public DoubleLinkedList<Player> getPlayers(){
         return players;
     }
+    
+    /**
+     * Modifica los jugadores
+     * @param players los jugadores apartir de una lista 
+     * doblemente ligada
+     * @param allCards las cartas
+   */ 
 
     public void setPlayers(DoubleLinkedList<Player> players){
         this.players= players;
     }
+    
+    /**
+    * Obtiene el registro de las cartas apartir de colas
+    * @return registros 
+     */
 
     public DoubleLinkedList<Queue<Card>> getRegistros(){
         return registros;
     }
-
+  
+    /**
+     * Modifica los registros
+     * @param registros apartir de la cola de las cartas
+   */ 
+    
     public void setRegistros(DoubleLinkedList<Queue<Card>> registros){
         this.registros = registros;
     }
@@ -285,8 +329,5 @@ public class OldMaid {
 
 
 
-    
-    
-    
-
 }
+

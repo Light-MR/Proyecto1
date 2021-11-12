@@ -104,17 +104,24 @@ public class Deck {
 	 * Remueve los pares de una lista de cartas (si los hay) version.
 	 * @return Queue con los elementos eliminados
 	 */
-	public Queue<Card> discardPairs(Player player){
-		Queue<Card> removed = new Queue<>();
+	public String  discardPairs(Player player){
+		String registro ="";
+		if(player.getDeck().isEmpty()){
+			System.out.println("\n\t Nothing to discard....");
+			return "";
+		}
+		
 		if(!duplicatedCards()){
 			System.out.println(yellow+"\n\t There isn´t any pairs to discard!! (/◔ ◡ ◔)/"+player.getName()+reset);
-			return removed;
+			return "";
 		}
 		try {
+			
 			DoubleLinkedList<Card> cards = getDecks();
 			int value = 0, value1=0;
 				Card card1 = new Card(), card2 = new Card();
-				System.out.print("\n\tDiscarded cards from "+player.getName()+":");
+				registro = "\n\tDiscarded cards from "+player.getName()+":";
+				System.out.print(registro);
 				for(int n = 0; n<getSize(); n++){
 					for(int k=n+1; k<getSize(); k++){
 						value = cards.get(n).getValue();
@@ -122,21 +129,19 @@ public class Deck {
 						if(value == value1){
 							card1= cards.remove(n);
 							card2 = cards.remove(k-1);
-							removed.enqueue(card1);
-							removed.enqueue(card2);
 							n=0;
 							k= n+1;
+							registro+="\t"+card1 + "\n\t"+ card2+"\n\n";
 							System.out.print("\t"+card1 + "\n\t"+ card2+"\n\n");
 						}
 					}
 				}
-				auxRegistros.enqueue(player);
 		
 		} catch (IndexOutOfBoundsException | NullPointerException e) {
 			//System.out.println("\n\tSomething went wrong! D:");
-			return removed;
+			return registro;
 		}
-		return removed; //será de utilidad para el historial
+		return registro; //será de utilidad para el historial
 	}
 
 
@@ -146,7 +151,7 @@ public class Deck {
 
 	@Override
 	public String toString(){
-		return getDecks().toString();
+		return getDecks().toString()+ "\n\tDeck size:"+ getSize()+ "\n\tVacío:"+isEmpty();
 	}
 
 

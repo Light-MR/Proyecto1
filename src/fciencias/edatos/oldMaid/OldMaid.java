@@ -14,7 +14,7 @@ public class OldMaid {
 
 
     /**Contiene la cantidad total de jugadores */
-    private DoubleLinkedList<Player> players;
+    private static DoubleLinkedList<Player> players = new DoubleLinkedList<>();
 
     DoubleLinkedList<Queue<Card>> registros = new DoubleLinkedList<>();
 
@@ -103,16 +103,14 @@ public class OldMaid {
      * @param n Número de jugadores que participarán en el juego.
      * @return Lista con n jugadores.
      */
-    public DoubleLinkedList<Player> generatePlayers(int n){
+    public void generatePlayers(int n){
         if(n<1 || n>10){
             System.out.println("Número de jugadores fuera de rango 🚩🚩🚩");
-            return new DoubleLinkedList<>();
+            return;
         }
         players = new DoubleLinkedList<>();
         for (int k = 0; k<n; k++)
             players.add(players.size(), new Player("\tPlayer " + (k+2) + " ٩(●̮̮̃•̃)۶",k+1) );
-        
-        return players;
 
     }
     //Revolver/ Barajear cartas
@@ -185,7 +183,7 @@ public class OldMaid {
             if(n==0)
                 continue;
             
-            registros.add(registros.size(), players.get(n).getDeck().discardPairs(players.get(n)));
+            players.get(n).getDeck().discardPairs(players.get(n));
         }
        
 
@@ -204,14 +202,15 @@ public class OldMaid {
         Card picked = new Card();
 
         if(card==0){
-            return picked = nextPLayer.getDeck().removeFromDeck(0);
+            return picked = nextPLayer.getDeck().getDecks().get(0);
         }
         try {
             
             for(int n = 0; n<nextPLayer.getDeck().getSize(); n++)
                 if(card == n){
-                    stolen.enqueue(picked = nextPLayer.getDeck().removeFromDeck(n));
-                    return picked;
+                    //No eliminar
+                    return picked = nextPLayer.getDeck().getDecks().get(n);
+                    
                 }
                     
                 
@@ -258,9 +257,7 @@ public class OldMaid {
         return players;
     }
 
-    public void setPlayers(DoubleLinkedList<Player> players){
-        this.players= players;
-    }
+   
 
     public DoubleLinkedList<Queue<Card>> getRegistros(){
         return registros;

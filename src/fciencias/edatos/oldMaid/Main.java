@@ -50,7 +50,9 @@ public class Main {
 		
 
 		System.out.println("TESTING ///////////:");
-		g.game(7, "Mary");
+		g.gameOM(7, "Mary");
+
+		System.out.println("\n\tHISTORIAL\n\n "+g.getHistorial());
 		
 		
         

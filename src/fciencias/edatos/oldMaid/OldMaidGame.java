@@ -518,8 +518,8 @@ public class OldMaidGame {
             System.out.println("\n\tSomething is wrong with me! :(.\n\n\t"+
             "Players List size:"+ game.getPlayers().size());
 
-            System.out.println(e);
-            e.printStackTrace();
+          //   System.out.println(e);
+          //    e.printStackTrace();
         }
 
 
